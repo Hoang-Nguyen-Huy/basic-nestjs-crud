@@ -20,11 +20,11 @@ export class ProductController{
     }
 
     @Post()
-    createProduct(@Body(new ValidationPipe()) productDto: ProductDto): ResponseData<ProductDto> {
+    createProduct(@Body(new ValidationPipe()) productDto: ProductDto): ResponseData<Product> {
         try {
-            return new ResponseData<ProductDto>(productDto, HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+            return new ResponseData<Product>(this.productService.createProduct(productDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         } catch (error) {
-            return new ResponseData<ProductDto>(null, HttpStatus.ERROR, HttpMessage.ERROR);
+            return new ResponseData<Product>(null, HttpStatus.ERROR, HttpMessage.ERROR);
         } 
     }
 
