@@ -30,11 +30,11 @@ export class ProductController{
     }
 
     @Get('/:id')
-    detailProduct(@Param('id') id: number): ResponseData<Product> {
+    async detailProduct(@Param('id') id: string): Promise<ResponseData<ProductEntity>> {
         try {
-            return new ResponseData<Product>(this.productService.detailProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+            return new ResponseData<ProductEntity>(await this.productService.detailProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         } catch (error) {
-            return new ResponseData<Product>(null, HttpStatus.ERROR, HttpMessage.ERROR);
+            return new ResponseData<ProductEntity>(null, HttpStatus.ERROR, HttpMessage.ERROR);
         } 
     }
 

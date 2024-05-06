@@ -32,8 +32,12 @@ export class ProductService{
         return productDto;
     }
 
-    detailProduct(id: number): Product {
-        return this.products.find(item => item.id === Number(id));
+    detailProduct(id: string): Promise<ProductEntity | null> {
+        return this.productRepository.findOne({
+            where: {
+                id: id,
+            }
+        });
     }
 
     updateProduct(productDto: ProductDto, id: number): Product {
