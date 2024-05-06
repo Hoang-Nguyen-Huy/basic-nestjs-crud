@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ProductDto } from "src/dto/product.dto";
 import { ProductEntity } from "src/entities/product.entity";
 import { Product } from "src/models/product.model";
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 
 @Injectable()
 export class ProductService{
@@ -35,12 +35,21 @@ export class ProductService{
         });
     }
 
-    updateProduct(productDto: ProductDto, id: number): Product {
-        const index = this.products.findIndex(item => item.id === Number(id));
-        this.products[index].categoryId = productDto.categoryId;
-        this.products[index].productName = productDto.productName;
-        this.products[index].price = productDto.price;
-        return this.products[index];
+    async updateProduct(productDto: ProductDto, id: string): Promise<string> {
+        const productUp = await this.productRepository.findOne({
+            where: {
+                id: id,
+            }
+        });
+        if (productUp) {
+            const res = (await this.productRepository.update(id, productDto)).affected;
+            if (res === 0) {
+                return 'Update failed';
+            } else {
+                return 'Update successfully';
+            }
+        }
+        return 'Product not found';
     }
 
    async deleteProduct(id: string): Promise<string> {

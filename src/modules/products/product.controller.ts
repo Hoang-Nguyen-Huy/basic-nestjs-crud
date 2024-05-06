@@ -5,6 +5,7 @@ import { HttpStatus, HttpMessage } from "src/global/globalEnum";
 import { Product } from "src/models/product.model";
 import { ProductDto } from "src/dto/product.dto";
 import { ProductEntity } from "src/entities/product.entity";
+import { UpdateResult } from "typeorm";
 
 @Controller('products')
 export class ProductController{
@@ -39,11 +40,11 @@ export class ProductController{
     }
 
     @Put('/:id')
-    updateProduct(@Body() productDto: ProductDto, @Param('id') id: number): ResponseData<Product> {
+    async updateProduct(@Body() productDto: ProductDto, @Param('id') id: string): Promise<ResponseData<string>> {
         try {
-            return new ResponseData<Product>(this.productService.updateProduct(productDto, id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+            return new ResponseData<string>(await this.productService.updateProduct(productDto, id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         } catch (error) {
-            return new ResponseData<Product>(null, HttpStatus.ERROR, HttpMessage.ERROR);
+            return new ResponseData<string>(null, HttpStatus.ERROR, HttpMessage.ERROR);
         } 
     }
 
