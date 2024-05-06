@@ -1,9 +1,17 @@
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 import { ProductDto } from "src/dto/product.dto";
+import { ProductEntity } from "src/entities/product.entity";
 import { Product } from "src/models/product.model";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class ProductService{
+
+    constructor(
+        @InjectRepository(ProductEntity)
+        private productRepository: Repository<ProductEntity>,
+    ) {};
 
     private products: Product[] = [
         {id: 1, categoryId: 2, price: 8000, productName: "Iphone"},
@@ -11,8 +19,8 @@ export class ProductService{
         {id: 3, categoryId: 4, price: 10000, productName: "Nokia"},
     ]
 
-    getProducts(): Product[] {
-        return this.products;
+    getProducts(): Promise<ProductEntity[]> {
+        return this.productRepository.find();
     }
  
     createProduct(productDto: ProductDto): Product {

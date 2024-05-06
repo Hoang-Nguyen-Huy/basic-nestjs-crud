@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductModule } from './modules/products/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { ProductEntity } from './entities/product.entity';
+import { ProductHttpModule } from './modules/products/product-http.module';
 
 @Module({
   imports: [
@@ -12,12 +13,12 @@ import { DataSource } from 'typeorm';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '13022014',
-      database: 'nestconnectdb',
-      entities: [],
+      password: 'root',
+      database: 'your db',
+      entities: [ProductEntity],
       synchronize: true,
     }),
-    ProductModule
+    ProductHttpModule
   ],
   controllers: [AppController],
   providers: [AppService],

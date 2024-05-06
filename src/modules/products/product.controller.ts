@@ -4,6 +4,7 @@ import { ResponseData } from "src/global/globalClass";
 import { HttpStatus, HttpMessage } from "src/global/globalEnum";
 import { Product } from "src/models/product.model";
 import { ProductDto } from "src/dto/product.dto";
+import { ProductEntity } from "src/entities/product.entity";
 
 @Controller('products')
 export class ProductController{
@@ -11,11 +12,11 @@ export class ProductController{
     constructor(private readonly productService: ProductService) {};
 
     @Get()
-    getProducts(): ResponseData<Product[]> {
+    async getProducts(): Promise<ResponseData<ProductEntity[]>> {
         try {
-            return new ResponseData<Product[]>(this.productService.getProducts(), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+            return new ResponseData<ProductEntity[]>(await this.productService.getProducts(), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         } catch (error) {
-            return new ResponseData<Product[]>(null, HttpStatus.ERROR, HttpMessage.ERROR);
+            return new ResponseData<ProductEntity[]>(await this.productService.getProducts(), HttpStatus.ERROR, HttpMessage.ERROR);
         } 
     }
 
