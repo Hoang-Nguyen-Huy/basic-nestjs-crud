@@ -43,13 +43,13 @@ export class ProductService{
         return this.products[index];
     }
 
-    deleteProduct(id: number): boolean {
-        const index = this.products.findIndex(item => item.id === Number(id));
-        if (index !== -1) {
-            this.products.splice(index, 1);
-            return true;
+   async deleteProduct(id: string): Promise<string> {
+        const res = await this.productRepository.delete(id);
+        console.log(res.affected);
+        if (res.affected === 0) {
+            return 'Delete failed';
         }
-        return false;
+        return 'Delete successfully';
     }
 
 }; 

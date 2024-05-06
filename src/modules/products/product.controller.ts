@@ -48,11 +48,11 @@ export class ProductController{
     }
 
     @Delete('/:id')
-    deleteProduct(@Param('id') id: number): ResponseData<boolean> {
+    async deleteProduct(@Param('id') id: string): Promise<ResponseData<string>> {
         try {
-            return new ResponseData<boolean>(this.productService.deleteProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+            return new ResponseData<string>(await this.productService.deleteProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         } catch (error) {
-            return new ResponseData<boolean>(null, HttpStatus.ERROR, HttpMessage.ERROR);
+            return new ResponseData<string>(null, HttpStatus.ERROR, HttpMessage.ERROR);
         } 
     }
 };
