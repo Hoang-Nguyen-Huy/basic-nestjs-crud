@@ -23,13 +23,8 @@ export class ProductService{
         return this.productRepository.find();
     }
  
-    createProduct(productDto: ProductDto): Product {
-        const product: Product = {
-            id: Math.random(),
-            ...productDto
-        };
-        this.products.push(product);
-        return productDto;
+    createProduct(productDto: ProductDto): Promise<ProductEntity> {
+        return this.productRepository.save(productDto);
     }
 
     detailProduct(id: string): Promise<ProductEntity | null> {
