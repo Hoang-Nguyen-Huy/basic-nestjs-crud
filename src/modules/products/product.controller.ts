@@ -32,11 +32,12 @@ export class ProductController{
 
     @Get('/:id')
     async detailProduct(@Param('id') id: string): Promise<ResponseData<ProductEntity>> {
-        try {
-            return new ResponseData<ProductEntity>(await this.productService.detailProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
-        } catch (error) {
-            return new ResponseData<ProductEntity>(null, HttpStatus.ERROR, HttpMessage.ERROR);
-        } 
+        const checkProduct: ProductEntity = await this.productService.detailProduct(id);
+        if (checkProduct) {
+            return new ResponseData<ProductEntity>(checkProduct, HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+        } else {
+            return new ResponseData<ProductEntity>(checkProduct,404, 'Product Not Found');
+        }
     }
 
     @Put('/:id')
