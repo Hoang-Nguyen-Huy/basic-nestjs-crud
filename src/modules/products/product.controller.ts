@@ -51,10 +51,11 @@ export class ProductController{
 
     @Delete('/:id')
     async deleteProduct(@Param('id') id: string): Promise<ResponseData<string>> {
-        try {
+        const resultDelete = await this.productService.deleteProduct(id);
+        if (resultDelete === "Delete failed") {
+            return new ResponseData<string>(resultDelete, 404, 'Product Not Found');
+        } else {
             return new ResponseData<string>(await this.productService.deleteProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
-        } catch (error) {
-            return new ResponseData<string>(null, HttpStatus.ERROR, HttpMessage.ERROR);
-        } 
+        }
     }
 };
