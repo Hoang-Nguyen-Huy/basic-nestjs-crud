@@ -2,10 +2,8 @@ import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from 
 import { ProductService } from "./product.service";
 import { ResponseData } from "src/global/globalClass";
 import { HttpStatus, HttpMessage } from "src/global/globalEnum";
-import { Product } from "src/models/product.model";
 import { ProductDto } from "src/dto/product.dto";
 import { ProductEntity } from "src/entities/product.entity";
-import { UpdateResult } from "typeorm";
 
 @Controller('products')
 export class ProductController{

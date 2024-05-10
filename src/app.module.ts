@@ -6,7 +6,8 @@ import { DataSource } from 'typeorm';
 import { ProductEntity } from './entities/product.entity';
 import { ProductHttpModule } from './modules/products/product-http.module';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { UsersHttpModule } from './users/users-http.module';
+import { UsersEntity } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -17,12 +18,12 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: '13022014',
       database: 'nestconnectdb',
-      entities: [ProductEntity],
+      entities: [ProductEntity, UsersEntity],
       synchronize: true,
     }),
     ProductHttpModule,
     AuthModule,
-    UsersModule
+    UsersHttpModule
   ],
   controllers: [AppController],
   providers: [AppService],
