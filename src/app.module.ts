@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { ProductEntity } from './entities/product.entity';
 import { ProductHttpModule } from './modules/products/product-http.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -18,7 +20,9 @@ import { ProductHttpModule } from './modules/products/product-http.module';
       entities: [ProductEntity],
       synchronize: true,
     }),
-    ProductHttpModule
+    ProductHttpModule,
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
