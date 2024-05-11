@@ -53,7 +53,6 @@ export class UsersService {
             const decipher = createCipheriv('aes-256-ctr', key, Buffer.from(foundUser.iv, 'hex'));
             let decryptedText = decipher.update(foundUser.password, 'hex', 'utf8');
             decryptedText += decipher.final('utf8');
-            console.log(decryptedText);
             if (decryptedText === password) {
                 return foundUser;
             }
