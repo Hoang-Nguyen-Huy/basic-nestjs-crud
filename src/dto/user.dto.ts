@@ -18,4 +18,6 @@ export class UsersDto {
         message: 'This password is too long',
     })
     password: string;
+
+    iv?: string;
 }   

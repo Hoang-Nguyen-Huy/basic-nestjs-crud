@@ -10,11 +10,12 @@ export class UsersController {
     constructor(private readonly userService: UsersService) {};
 
     @Post('/register') // Register
-    async createUser(@Body(new ValidationPipe) userDto: UsersDto): Promise<ResponseData<UsersEntity>> {
-        try {
-            return new ResponseData<UsersEntity>(await this.userService.createUser(userDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
-        } catch(error) {
-            return new ResponseData<UsersEntity>(await this.userService.createUser(userDto), HttpStatus.ERROR, HttpMessage.ERROR);
+    async createUser(@Body(new ValidationPipe) userDto: UsersDto): Promise<ResponseData<UsersDto>> {
+        const checkUser = await this.userService.createUser(userDto);
+        if (checkUser === null) {
+            return new ResponseData<UsersDto>(null, 401, 'This username was taken!!!');
+        } else {
+            return new ResponseData<UsersDto>(checkUser, HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         }
     }
 }

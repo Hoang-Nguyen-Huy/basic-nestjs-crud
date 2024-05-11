@@ -10,5 +10,8 @@ export class UsersEntity {
 
     @Column()
     password: string;
+
+    @Column()
+    iv: string;
 }
 
