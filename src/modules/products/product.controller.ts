@@ -58,7 +58,7 @@ export class ProductController{
         if (resultDelete === "Delete failed") {
             return new ResponseData<string>(resultDelete, 404, 'Product Not Found');
         } else {
-            return new ResponseData<string>(await this.productService.deleteProduct(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
+            return new ResponseData<string>(resultDelete, HttpStatus.SUCCESS, HttpMessage.SUCCESS);
         }
     }
 };
