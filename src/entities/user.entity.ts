@@ -13,5 +13,8 @@ export class UsersEntity {
 
     @Column()
     iv: string;
+
+    @Column()
+    role: string;
 }
 

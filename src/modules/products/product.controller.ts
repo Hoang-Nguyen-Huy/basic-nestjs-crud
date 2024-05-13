@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, ValidationPipe } from "@nestjs/common";
 import { ProductService } from "./product.service";
 import { ResponseData } from "src/global/globalClass";
 import { HttpStatus, HttpMessage } from "src/global/globalEnum";
 import { ProductDto } from "src/dto/product.dto";
 import { ProductEntity } from "src/entities/product.entity";
+import { Roles } from "src/roles/role.decorator";
+import { Role } from "src/roles/role.enum";
 
 @Controller('products')
 export class ProductController{
@@ -20,6 +22,7 @@ export class ProductController{
     }
 
     @Post()
+    @Roles(Role.Admin)
     async createProduct(@Body(new ValidationPipe()) productDto: ProductDto): Promise<ResponseData<ProductEntity>> {
         try {
             return new ResponseData<ProductEntity>(await this.productService.createProduct(productDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
@@ -39,6 +42,7 @@ export class ProductController{
     }
 
     @Put('/:id')
+    @Roles(Role.Admin)
     async updateProduct(@Body() productDto: ProductDto, @Param('id') id: string): Promise<ResponseData<string>> {
         try {
             return new ResponseData<string>(await this.productService.updateProduct(productDto, id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
@@ -48,6 +52,7 @@ export class ProductController{
     }
 
     @Delete('/:id')
+    @Roles(Role.Admin)
     async deleteProduct(@Param('id') id: string): Promise<ResponseData<string>> {
         const resultDelete = await this.productService.deleteProduct(id);
         if (resultDelete === "Delete failed") {

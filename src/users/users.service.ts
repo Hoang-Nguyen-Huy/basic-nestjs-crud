@@ -5,7 +5,7 @@ import { UsersEntity } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { createCipheriv, randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';
-import { compareSync } from 'bcrypt';
+import { Role } from 'src/roles/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -36,7 +36,8 @@ export class UsersService {
         const responseUser: UsersEntity = await this.userRepository.save(userDto);
         const responseData: UsersDto = {
             username: responseUser.username,
-            password: responseUser.password
+            password: responseUser.password,
+            role: responseUser.role === 'admin' ? Role.Admin : Role.User
         };
         return responseData;
     }
