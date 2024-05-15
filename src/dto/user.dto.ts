@@ -32,7 +32,7 @@ export class UsersDto {
 
     @ApiProperty({
         enum: ['admin', 'user'],
-        example: 'users or admin',
+        example: 'user',
         description: 'Admin has to input the role due to authorization'
     })
     role?: Role;
