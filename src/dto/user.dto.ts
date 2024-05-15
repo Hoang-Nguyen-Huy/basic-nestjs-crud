@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, MaxLength, Min, MinLength } from "class-validator";
+import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 import { Role } from "src/roles/role.enum";
 
 export class UsersDto {

@@ -6,7 +6,9 @@ import { ProductDto } from "src/dto/product.dto";
 import { ProductEntity } from "src/entities/product.entity";
 import { Roles } from "src/roles/role.decorator";
 import { Role } from "src/roles/role.enum";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('products')
 @Controller('products')
 export class ProductController{
 
