@@ -33,6 +33,11 @@ export class UsersService {
         if (checkUser) {
             return null;
         }
+
+        if (!userDto.role) {
+            userDto.role = Role.User; // Giả định Role.User là giá trị mặc định
+        }
+        
         const responseUser: UsersEntity = await this.userRepository.save(userDto);
         const responseData: UsersDto = {
             username: responseUser.username,

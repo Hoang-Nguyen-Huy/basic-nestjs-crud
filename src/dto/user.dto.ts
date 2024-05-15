@@ -17,7 +17,7 @@ export class UsersDto {
     username:string;
 
     @ApiProperty({
-        example: 'Password123',
+        example: '123123',
     })
     @IsNotEmpty()
     @MinLength(6, {
@@ -30,10 +30,5 @@ export class UsersDto {
 
     iv?: string;
 
-    @ApiProperty({
-        enum: ['admin', 'user'],
-        example: 'user',
-        description: 'Admin has to input the role due to authorization'
-    })
     role?: Role;
 }   
