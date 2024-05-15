@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
+                        .addBearerAuth()
                         .setTitle('Basic-NestJS-CRUD')
                         .setDescription('The basic API description')
                         .setVersion('1.0')
